@@ -1,0 +1,14 @@
+SYNTHETIC TRAINING EXAMPLE
+Loan agreement / Microfinance loan
+Lender: Example Rural Bank
+Principal: INR 50,000
+Interest rate: 24% per annum reducing
+Tenure: 12 months
+EMI: INR 4,728
+Processing fee: INR 500
+Late fee: INR 100
+Insurance charge: INR 0
+No prepayment penalty.
+Insurance is optional.
+Key Facts Statement attached. APR disclosed separately.
+Signature: signed

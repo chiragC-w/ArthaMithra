@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123f37"><title>ArthaMitra · Understand together</title><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script></head>
+<body>
+<header><a class="brand" href="/" aria-label="ArthaMitra home"><span class="brand-icon" aria-hidden="true">ಅ</span><span>ArthaMitra<small>ಅರ್ಥಮಿತ್ರ</small></span></a><span class="header-note">A clearer conversation about money</span></header>
+<main>
+  <section class="intro"><p class="eyebrow">FOR COMMUNITY FACILITATORS</p><h1>Understand the document.<br><span>Know what to ask.</span></h1><p class="lead">Read financial documents together, with simple explanations in Kannada and English.</p><p class="kannada" lang="kn">ದಾಖಲೆಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ. ಕೇಳಬೇಕಾದ ಪ್ರಶ್ನೆಗಳನ್ನು ತಿಳಿಯಿರಿ.</p></section>
+  <div class="workspace">
+    <section class="upload-panel" aria-labelledby="upload-title"><div class="section-heading"><span class="step-number">1</span><h2 id="upload-title">Add a document <span lang="kn">ದಾಖಲೆ ಸೇರಿಸಿ</span></h2></div>
+      <p>Loan agreement, passbook, scheme letter or repayment schedule.</p>
+      <form id="analyze-form">
+        <label class="file-label" for="document"><span class="file-symbol" aria-hidden="true">▤</span><strong>Choose a document</strong><span>Photo, text PDF or TXT · up to 5 MB</span></label>
+        <input id="document" type="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.webp" aria-describedby="file-help">
+        <div class="camera-row"><label class="camera-button" for="camera">Take a photo · <span lang="kn">ಫೋಟೋ ತೆಗೆಯಿರಿ</span></label><input id="camera" type="file" accept="image/*" capture="environment"></div>
+        <p id="file-help">Keep all four corners visible and avoid shadows.</p><p id="selected-file" role="status">No document selected</p>
+        <label class="consent"><input id="consent" type="checkbox" required><span>I have the document holder’s permission to analyze this document.</span></label>
+        <button id="analyze-button" type="submit">Explain this document <span lang="kn">ವಿವರಿಸಿ</span></button>
+      </form>
+      <p class="privacy-note">Identifiers are masked before external processing. Documents are not kept as analysis history. Check the original before acting.</p>
+      <p id="mode" class="mode">Checking service…</p>
+    </section>
+    <section class="results-panel" aria-labelledby="results-title"><div class="section-heading"><span class="step-number">2</span><h2 id="results-title">Read, listen & discuss</h2></div>
+      <div id="status" role="status" aria-live="polite">Your explanation will appear here.</div>
+      <div id="empty-state"><div class="empty-mark" aria-hidden="true">ಅ ಆ</div><h3>A little clarity goes a long way.</h3><p>See the key amounts, points to check and questions to carry into your next conversation.</p><div class="feature-pills"><span>ಕನ್ನಡ + English</span><span>Clear next steps</span></div></div>
+      <div id="results" hidden>
+        <div class="result-top"><span id="document-type" class="type-badge"></span><button id="clear" type="button" class="text-button">Clear results</button></div>
+        <p id="explanation-mode" class="mode"></p>
+        <section class="summary-block"><h3>Your document, explained</h3><p id="summary-kn" lang="kn"></p><p id="summary-en"></p><audio id="audio" controls preload="none" hidden aria-label="Kannada explanation and action steps"></audio><p id="audio-status"></p></section>
+        <h3>Key amounts · <span lang="kn">ಮುಖ್ಯ ಮೊತ್ತಗಳು</span></h3><dl id="fields" class="fields"></dl>
+        <h3>Points to check · <span lang="kn">ಪರಿಶೀಲಿಸಬೇಕಾದ ಅಂಶಗಳು</span></h3><p class="subtle">Review prompts, not a finding of wrongdoing.</p><div id="flags"></div>
+        <h3>Your conversation checklist</h3><ol id="steps" class="steps"></ol>
+        <details><summary>Sources & verification notes</summary><ul id="references"></ul><ul id="warnings"></ul><p id="timing"></p><p>Heuristic classification confidence is not a calibrated probability. No flags does not mean a document is safe.</p></details>
+        <details><summary>Review the masked text</summary><p>Free-form names or addresses may remain. Do not share this text without reviewing it.</p><pre id="redacted-text"></pre></details>
+      </div>
+    </section>
+  </div>
+  <footer><strong>For explanation and education.</strong> Not certified legal or financial advice. Verify with official bank/lender representatives.<p lang="kn">ಇದು ಶೈಕ್ಷಣಿಕ ವಿವರಣೆಯ ಸಹಾಯ ಮಾತ್ರ. ಅಧಿಕೃತ ಬ್ಯಾಂಕ್ ಅಥವಾ ಸಾಲದಾತರ ಪ್ರತಿನಿಧಿಗಳೊಂದಿಗೆ ಪರಿಶೀಲಿಸಿ.</p></footer>
+</main>
+</body></html>

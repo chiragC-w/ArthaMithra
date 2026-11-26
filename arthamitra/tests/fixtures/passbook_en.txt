@@ -1,0 +1,5 @@
+SYNTHETIC Bank passbook
+Bank: Example Rural Bank
+Account number: 000011112222
+Date | Debit | Credit | Balance
+01/01/2026 | 0 | 500 | 500

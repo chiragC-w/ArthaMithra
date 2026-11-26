@@ -1,0 +1,8 @@
+SYNTHETIC Repayment schedule
+Lender: Example Rural Bank
+Principal: INR 50,000
+Interest rate: 24% per annum reducing
+Tenure: 12 months
+Instalment amount: INR 4,728
+Due date | Instalment | Outstanding balance
+01/02/2026 | 4728 | 46272

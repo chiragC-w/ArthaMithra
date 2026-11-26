@@ -1,0 +1,10 @@
+[
+ {"file":"loan_en.txt","type":"loan_agreement","fields":{"principal":50000,"interest_rate":24,"tenure":12,"instalment_amount":4728,"fees":500,"penalties":100,"insurance_charges":0},"flags":[]},
+ {"file":"loan_kn.txt","type":"loan_agreement","fields":{"principal":40000,"interest_rate":18,"tenure":24,"instalment_amount":2000,"fees":400,"penalties":50,"insurance_charges":100},"flags":["RF10"]},
+ {"file":"passbook_en.txt","type":"bank_passbook","fields":{},"flags":[]},
+ {"file":"passbook_kn.txt","type":"bank_passbook","fields":{},"flags":[]},
+ {"file":"scheme_en.txt","type":"government_scheme_letter","fields":{},"flags":[]},
+ {"file":"scheme_kn.txt","type":"government_scheme_letter","fields":{},"flags":[]},
+ {"file":"schedule_en.txt","type":"repayment_schedule","fields":{"principal":50000,"interest_rate":24,"tenure":12,"instalment_amount":4728},"flags":[]},
+ {"file":"schedule_kn.txt","type":"repayment_schedule","fields":{"principal":40000,"interest_rate":18,"tenure":24,"instalment_amount":2000},"flags":[]}
+]
