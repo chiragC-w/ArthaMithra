@@ -2,34 +2,49 @@
 
 A local-first, mobile-friendly financial document explainer for trusted community intermediaries in Karnataka. Kannada and English explanations, deterministic review flags, and optional external LLM planning and Kannada speech. No local LLM weights or training pipeline.
 
-## Run
+## Quick start
 
-The local `.env` now selects **Gemini Flash** (`LLM_PROVIDER=gemini`). Set `GEMINI_API_KEY` from a Google AI Studio project with **no Cloud Billing account linked** before starting. Gemini mode pins `gemini-3.8-flash` and Google's endpoint; it ignores OpenAI credentials and generic model/endpoint settings. This pin prevents accidental OpenAI fallback, but cannot enforce or verify Google's billing tier. Preserve `.env` when following the commands below. Example/code defaults remain offline; live integration verification is pending credentials and dependency installation.
-
-Google currently lists free-tier input/output for this model. Keep the key's project on Free Tier: do not enable billing or upgrade. A 429 quota error gets no immediate retry and falls back to local templates, never to another model. A later upload can try Gemini again; daily limits reset according to Google's schedule. The app does not buy credits or upgrade billing. Keep `TTS_PROVIDER=offline` to avoid Azure speech charges. Free-tier content can be used to improve Google's products; test with synthetic data. Only the app's closed fact cards are transmitted, not raw OCR prose.
-
-Sources checked 2026-11-24: [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing), [free-tier billing requirement](https://firebase.google.com/docs/ai-logic/pricing?api=dev), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [OpenAI compatibility](https://ai.google.dev/gemini-api/docs/openai).
-
-From this directory, using Python 3.12 or newer:
+Clone the repository, enter the `arthamitra` directory, and install Python 3.12 or newer. Then run the commands for your system. The default configuration uses local templates and needs no API key.
 
 ```powershell
+# Windows PowerShell
 python -m venv .venv
 .\.venv\Scripts\python -m pip install -e ".[dev]"
-if (!(Test-Path .env)) { Copy-Item .env.example .env }
+Copy-Item .env.example .env
 .\.venv\Scripts\python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --no-access-log
 ```
 
-Open **http://127.0.0.1:8000**. API documentation is at `/docs`. Upload a synthetic fixture from `tests/fixtures/` to try it. Default mode needs no keys and makes no external LLM or TTS calls. The upload travels to your running backend; “local” means local to that backend, not browser-only processing.
+```bash
+# macOS / Linux
+python3 -m venv .venv
+.venv/bin/python -m pip install -e '.[dev]'
+cp .env.example .env
+.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --no-access-log
+```
+
+If you already have a `.env`, keep it instead of copying the example over it. Open **http://127.0.0.1:8000** and upload `tests/fixtures/loan_en.txt` for a first test. The API documentation is at **http://127.0.0.1:8000/docs**. Keep the terminal open while using the app; press Ctrl+C to stop it. The upload travels to your running backend; “local” means local to that backend, not browser-only processing.
+
+### Use Gemini Flash
+
+Get an API key from [Google AI Studio](https://aistudio.google.com/api-keys). Edit your untracked `.env` file:
+
+```dotenv
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your_google_api_key
+TTS_PROVIDER=offline
+```
+
+Restart the server. Gemini mode pins `gemini-3.8-flash` and Google's endpoint; the OpenAI model and key settings are ignored. When Gemini returns a quota error, the app uses local template explanations. For a no-charge API project, keep that Google project on the Free Tier with no Cloud Billing account linked. The app cannot inspect or enforce the project's billing status. Google says free-tier content may be used to improve its products, so use synthetic documents while testing. The app sends closed fact cards rather than raw OCR prose.
+
+Check [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), and [billing tier requirements](https://firebase.google.com/docs/ai-logic/pricing?api=dev) before enabling the API.
+
+### Other providers and OCR
 
 For image OCR, separately install Tesseract from a trusted distribution and ensure it is on PATH with `kan` and `eng` traineddata. TXT and text PDFs do not require Tesseract. Scanned/mixed PDFs currently return a clear instruction to upload page photographs. The app does not silently omit unreadable pages. Upload limits: 5 MB by default, 10 PDF pages, 20 megapixels, 60,000 extracted characters. Unsupported documents receive a 422 response.
 
-For an external LLM, set `LLM_PROVIDER=openai_compatible`, `LLM_API_KEY`, `LLM_MODEL`, and an HTTPS `LLM_BASE_URL` supporting Chat Completions strict JSON schema. For actual Kannada speech, set `TTS_PROVIDER=azure`, `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION`. Model and voice availability depends on your provider account. Keys stay on the backend. TTS receives only the generated Kannada explanation, advisory and action steps.
+For another external LLM, set `LLM_PROVIDER=openai_compatible`, `LLM_API_KEY`, `LLM_MODEL`, and an HTTPS `LLM_BASE_URL` supporting Chat Completions strict JSON schema. For Kannada speech, set `TTS_PROVIDER=azure`, `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION`; Azure usage may incur charges. Model and voice availability depends on your provider account. Keys stay on the backend. TTS receives only the generated Kannada explanation, advisory and action steps.
 
-```powershell
-.\.venv\Scripts\python -m pytest -q
-.\.venv\Scripts\python -m eval.evaluate_pipeline
-node --check frontend/app.js
-```
+Run tests with `.venv\Scripts\python -m pytest -q` on Windows or `.venv/bin/python -m pytest -q` on macOS/Linux. Run the synthetic evaluation by replacing `pytest -q` with `eval.evaluate_pipeline` in the same command.
 
 The evaluation writes `eval/results.json`. Supply a separately annotated corpus with `--labels path/to/labels.json --fixtures path/to/documents`. Gold labels list document type, the seven numeric fields that are present, and expected rule IDs. Missing expected values are treated as absent; incorrect predicted values count as both FP and FN. The confusion matrix evaluates every document/rule pair. Undefined metrics are `null`, not a fabricated perfect score. Default evaluation uses offline providers; inject a configured `AnalysisPipeline` into `evaluate()` for provider-inclusive measurements.
 
